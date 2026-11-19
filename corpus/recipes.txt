@@ -1,0 +1,457 @@
+# Recipe instruction corpus for the Recipe Step Autocompleter.
+# Written for this project: 40 home-style recipes, Indian and everyday Western.
+# Lines starting with "#" are titles or comments. Every other line is one recipe step.
+# The formatting is deliberately mixed (numbered steps, "Step 2:", bullets, ½, °C,
+# 10–12 ranges, extra spaces) so the cleaning code in app/core.py has real work to do.
+
+## Masala Chai
+1. Bring 1 cup of water to a boil in a saucepan.
+2. Add the crushed ginger, 2 cardamom pods and a small piece of cinnamon.
+3. Simmer for 2 minutes so the spices release their flavour.
+4. Add 2 teaspoons of tea leaves and boil for 1 minute.
+5. Pour in 1 cup of milk and bring it back to a boil.
+6. Add sugar to taste and simmer for 2 more minutes.
+7. Strain the tea into cups and serve hot.
+
+## Jeera Rice
+1. Rinse 1 cup of basmati rice until the water runs clear.
+2. Soak the rice in water for 20 minutes, then drain.
+3. Heat 1 tablespoon of ghee in a pan over medium heat.
+4. Add 1 teaspoon of cumin seeds and let them splutter.
+5. Add the drained rice and stir gently for 1 minute.
+6. Pour in 2 cups of water and add salt to taste.
+7. Bring to a boil, then cover and cook on low heat for 12 minutes.
+8. Turn off the heat and let the rice rest for 5 minutes.
+9. Fluff the rice with a fork and serve hot.
+
+## Dal Tadka
+Step 1: Rinse 1 cup of toor dal two or three times.
+Step 2: Pressure cook the dal with 3 cups of water, turmeric and salt for 3 whistles.
+Step 3: Let the pressure release naturally, then mash the dal with a spoon.
+Step 4: Heat 2 tablespoons of ghee in a small pan over medium heat.
+Step 5: Add the cumin seeds and mustard seeds and let them splutter.
+Step 6: Add the chopped garlic and dried red chillies and fry until the garlic turns golden.
+Step 7: Add the chopped onion and cook until soft.
+Step 8: Add the chopped tomato, red chilli powder and a pinch of salt and cook until the tomato is soft.
+Step 9: Pour the tempering over the dal and stir well.
+Step 10: Simmer for 5 minutes, garnish with chopped coriander and serve hot with rice.
+
+## Masala Omelette
+- Crack 2 eggs into a bowl and whisk until frothy.
+- Add the chopped onion, chopped tomato, chopped green chilli and chopped coriander.
+- Season with salt and a pinch of pepper and whisk again.
+- Heat 1 teaspoon of oil in a non-stick pan over medium heat.
+- Pour the egg mixture into the pan and spread it evenly.
+- Cook for 2 minutes until the bottom is set and golden.
+- Flip the omelette carefully and cook for 1 more minute.
+- Serve hot with buttered toast.
+
+## Classic Pancakes
+1. In a large bowl, whisk together 1 cup of flour, 1 tablespoon of sugar, 2 teaspoons of baking powder and a pinch of salt.
+2. In another bowl, whisk 1 egg with 1 cup of milk and 2 tablespoons of melted butter.
+3. Pour the wet ingredients into the dry ingredients and stir until just combined.
+4. Do not overmix the batter; a few lumps are fine.
+5. Let the batter rest for 5 minutes.
+6. Heat a non-stick pan over medium heat and brush it with a little butter.
+7. Pour ¼ cup of batter into the pan for each pancake.
+8. Cook until bubbles form on the surface, then flip the pancake.
+9. Cook for 1 more minute until golden brown.
+10. Serve warm with honey or maple syrup.
+
+## Tomato Pasta
+1. Bring a large pot of salted water to a boil.
+2. Add the pasta and cook for 10–12 minutes until al dente.
+3. Reserve ½ cup of the pasta water, then drain the pasta.
+4. Meanwhile, heat 2 tablespoons of olive oil in a pan over medium heat.
+5. Add the chopped garlic and cook for 1 minute until fragrant.
+6. Add the chopped tomatoes, salt and a pinch of chilli flakes.
+7. Simmer the sauce for 10 minutes, stirring occasionally.
+8. Add the drained pasta to the sauce and toss well.
+9. Add a splash of the reserved pasta water if the sauce is too thick.
+10. Garnish with fresh basil and grated cheese and serve hot.
+
+## Chocolate Chip Cookies
+1. Preheat the oven to 180°C and line a baking tray with parchment paper.
+2. In a large bowl, beat ½ cup of soft butter with ¾ cup of brown sugar until light and fluffy.
+3. Add 1 egg and 1 teaspoon of vanilla extract and beat well.
+4. In another bowl, mix 1 ½ cups of flour, ½ teaspoon of baking soda and a pinch of salt.
+5. Add the dry ingredients to the butter mixture and mix until a soft dough forms.
+6. Fold in 1 cup of chocolate chips.
+7. Scoop tablespoons of dough onto the baking tray, leaving space between each cookie.
+8. Bake for 10–12 minutes until the edges are golden brown.
+9. Let the cookies cool on the tray for 5 minutes, then move them to a wire rack.
+
+## Banana Bread
+1. Preheat the oven to 175°C and grease a loaf tin with butter.
+2. Mash 3 ripe bananas in a large bowl with a fork.
+3. Stir in ⅓ cup of melted butter.
+4. Add ¾ cup of sugar, 1 beaten egg and 1 teaspoon of vanilla extract and mix well.
+5. Sprinkle 1 teaspoon of baking soda and a pinch of salt over the mixture.
+6. Add 1 ½ cups of flour and fold until just combined.
+7. Pour the batter into the loaf tin and smooth the top.
+8. Bake for 50–60 minutes until a toothpick inserted in the centre comes out clean.
+9. Let the bread cool in the tin for 10 minutes, then turn it out onto a wire rack.
+
+## Vegetable Fried Rice
+1. Cook 1 cup of rice, spread it on a plate and let it cool completely.
+2. Heat 2 tablespoons of oil in a wok over high heat.
+3. Add the chopped garlic and stir fry for 30 seconds.
+4. Add the chopped carrots, beans and cabbage and stir fry for 3 minutes.
+5. Add the chopped capsicum and spring onion whites and stir fry for 1 more minute.
+6. Add the cooked rice and toss well on high heat.
+7. Add 1 tablespoon of soy sauce, a pinch of pepper and salt to taste.
+8. Toss for 2 minutes until the rice is hot and well coated.
+9. Garnish with chopped spring onion greens and serve hot.
+
+## Paneer Butter Masala
+Step 1: Heat 1 tablespoon of butter in a pan over medium heat.
+Step 2: Add the chopped onion, chopped tomatoes, cashews and ginger and cook until the tomatoes are soft.
+Step 3: Let the mixture cool, then blend it into a smooth paste.
+Step 4: Heat 2 tablespoons of butter in the same pan.
+Step 5: Add the blended paste, red chilli powder and garam masala and cook for 5 minutes.
+Step 6: Add ½ cup of water and salt to taste and bring to a simmer.
+Step 7: Add the paneer cubes and simmer for 3 minutes.
+Step 8: Stir in 2 tablespoons of cream and a pinch of crushed kasuri methi.
+Step 9: Garnish with chopped coriander and serve hot with naan or rice.
+
+## Aloo Paratha
+1. Boil 3 potatoes until soft, then peel and mash them.
+2. Mix the mashed potatoes with chopped green chilli, chopped coriander, salt and garam masala.
+3. Knead 2 cups of wheat flour with water and a pinch of salt into a soft dough.
+4. Cover the dough and let it rest for 15 minutes.
+5. Divide the dough into equal balls and roll each ball into a small circle.
+6. Place a spoonful of the potato filling in the centre and seal the edges.
+7. Roll the stuffed ball gently into a flat paratha.
+8. Heat a tawa over medium heat and cook the paratha until brown spots appear on both sides.
+9. Brush the paratha with ghee and cook until golden and crisp.
+10. Serve hot with curd and pickle.
+
+## Upma
+1. Dry roast 1 cup of rava in a pan over low heat until fragrant, then set aside.
+2. Heat 2 tablespoons of oil in the same pan over medium heat.
+3. Add the mustard seeds and let them splutter.
+4. Add the urad dal, chana dal and curry leaves and fry until the dal turns golden.
+5. Add the chopped onion, chopped green chilli and grated ginger and cook until the onion is soft.
+6. Pour in 2 ½ cups of water and add salt to taste.
+7. Bring the water to a boil.
+8. Add the roasted rava slowly, stirring all the time so no lumps form.
+9. Cover and cook on low heat for 3 minutes.
+10. Garnish with chopped coriander and serve hot.
+
+## Poha
+- Rinse 2 cups of thick poha in a strainer and let it drain for 5 minutes.
+- Heat 2 tablespoons of oil in a pan over medium heat.
+- Add the mustard seeds and let them splutter.
+- Add the peanuts and fry until they are golden.
+- Add the curry leaves, chopped green chilli and chopped onion and cook until the onion is soft.
+- Add turmeric, salt and a pinch of sugar and stir well.
+- Add the drained poha and mix gently so it does not break.
+- Cover and cook on low heat for 2 minutes.
+- Squeeze lemon juice over the poha, garnish with chopped coriander and serve hot.
+
+## Lemon Rice
+1. Cook 1 cup of rice and let it cool completely.
+2. Heat 2 tablespoons of oil in a pan over medium heat.
+3. Add the mustard seeds and let them splutter.
+4. Add the chana dal, urad dal and peanuts and fry until golden.
+5. Add the curry leaves, dried red chillies and a pinch of asafoetida.
+6. Add turmeric and stir for a few seconds.
+7. Add the cooked rice and salt to taste and mix gently.
+8. Turn off the heat and squeeze the juice of 1 lemon over the rice.
+9. Mix well, garnish with chopped coriander and serve.
+
+## Chicken Curry
+Step 1: Marinate the chicken with curd, turmeric, red chilli powder and salt for 30 minutes.
+Step 2: Heat 3 tablespoons of oil in a heavy pan over medium heat.
+Step 3: Add the bay leaf, cloves, cardamom and cinnamon and fry for a few seconds.
+Step 4: Add the sliced onions and cook until golden brown.
+Step 5: Add the ginger garlic paste and cook for 1 minute until the raw smell goes away.
+Step 6: Add the chopped tomatoes and cook until soft and the oil separates.
+Step 7: Add the coriander powder, cumin powder and garam masala and cook for 2 minutes.
+Step 8: Add the marinated chicken and cook on high heat for 5 minutes.
+Step 9: Pour in 1 cup of water, cover and simmer for 20 minutes until the chicken is cooked through.
+Step 10: Garnish with chopped coriander and serve hot with rice or roti.
+
+## Roast Vegetables
+1. Preheat the oven to 200°C.
+2. Cut the potatoes, carrots, onions and capsicum into large even pieces.
+3. Toss the vegetables with olive oil, salt, pepper and dried herbs.
+4. Spread the vegetables in a single layer on a baking tray.
+5. Roast for 30–35 minutes, turning them halfway through.
+6. Roast until the vegetables are tender and golden at the edges.
+7. Squeeze a little lemon juice over the vegetables and serve warm.
+
+## Garlic Bread
+1. Preheat the oven to 190°C.
+2. Mix ¼ cup of soft butter with the chopped garlic, chopped parsley and a pinch of salt.
+3. Cut the bread into thick slices without cutting all the way through.
+4. Spread the garlic butter generously between the slices.
+5. Wrap the bread in foil and bake for 10 minutes.
+6. Open the foil and bake for 5 more minutes until the top is crisp and golden.
+7. Serve warm.
+
+## French Toast
+1. Whisk 2 eggs with ½ cup of milk, 1 teaspoon of sugar and a pinch of cinnamon.
+2. Dip each slice of bread into the egg mixture so both sides are coated.
+3. Heat a little butter in a non-stick pan over medium heat.
+4. Place the bread in the pan and cook for 2 minutes until golden brown.
+5. Flip the bread and cook the other side for 2 more minutes.
+6. Serve warm with honey and fresh fruit.
+
+## Guacamole
+- Cut the avocados in half, remove the seed and scoop the flesh into a bowl.
+- Mash the avocado with a fork, leaving it a little chunky.
+- Add the chopped onion, chopped tomato, chopped green chilli and chopped coriander.
+- Squeeze in the juice of 1 lime and season with salt.
+- Mix gently and taste for salt.
+- Serve right away with chips.
+
+## Mushroom Soup
+1. Heat 2 tablespoons of butter in a pot over medium heat.
+2. Add the chopped onion and chopped garlic and cook until soft.
+3. Add the sliced mushrooms and cook for 8 minutes until they release their water.
+4. Sprinkle 1 tablespoon of flour over the mushrooms and stir for 1 minute.
+5. Pour in 3 cups of vegetable stock slowly, stirring all the time.
+6. Bring to a boil, then simmer for 10 minutes.
+7. Blend half of the soup until smooth and stir it back into the pot.
+8. Stir in ½ cup of cream and season with salt and pepper.
+9. Serve hot with toasted bread.
+
+## Vegetable Biryani
+Step 1: Rinse 1 ½ cups of basmati rice and soak it in water for 30 minutes.
+Step 2: Boil the rice in plenty of salted water until it is 70 percent cooked, then drain.
+Step 3: Heat 3 tablespoons of ghee in a heavy pot over medium heat.
+Step 4: Add the bay leaf, cloves, cardamom and cinnamon and fry for a few seconds.
+Step 5: Add the sliced onions and cook until golden brown.
+Step 6: Add the ginger garlic paste and cook for 1 minute.
+Step 7: Add the chopped vegetables, curd, biryani masala and salt and cook for 5 minutes.
+Step 8: Spread the half cooked rice over the vegetables in an even layer.
+Step 9: Sprinkle fried onions, chopped mint, chopped coriander and saffron milk over the rice.
+Step 10: Cover tightly and cook on low heat for 20 minutes.
+Step 11: Let the biryani rest for 5 minutes, then mix gently and serve hot with raita.
+
+## Rava Kesari
+1. Heat 2 tablespoons of ghee in a pan over low heat.
+2. Fry the cashews and raisins until golden, then set them aside.
+3. Add 1 cup of rava to the same pan and roast until fragrant.
+4. Meanwhile, bring 2 cups of water to a boil with a pinch of saffron.
+5. Pour the hot water into the rava slowly, stirring all the time so no lumps form.
+6. Cook until the rava absorbs all the water.
+7. Add 1 cup of sugar and stir until it melts.
+8. Add 2 more tablespoons of ghee and a pinch of cardamom powder and stir well.
+9. Garnish with the fried cashews and raisins and serve warm.
+
+## Coconut Chutney
+1. Add 1 cup of grated coconut, 2 green chillies, a small piece of ginger and salt to a blender.
+2. Add 2 tablespoons of roasted chana dal and ¼ cup of water.
+3. Blend into a smooth paste, adding more water if needed.
+4. Pour the chutney into a bowl.
+5. Heat 1 teaspoon of oil in a small pan over medium heat.
+6. Add the mustard seeds and let them splutter.
+7. Add the curry leaves and a dried red chilli and fry for a few seconds.
+8. Pour the tempering over the chutney and serve with idli or dosa.
+
+## Chana Masala
+1. Soak 1 cup of chickpeas in water overnight.
+2. Pressure cook the chickpeas with salt and water for 5 whistles until soft.
+3. Heat 2 tablespoons of oil in a pan over medium heat.
+4. Add the cumin seeds and let them splutter.
+5. Add the chopped onion and cook until golden brown.
+6. Add the ginger garlic paste and cook for 1 minute.
+7. Add the chopped tomatoes and cook until soft.
+8. Add the chana masala powder, red chilli powder and turmeric and cook for 2 minutes.
+9. Add the cooked chickpeas along with 1 cup of their cooking water.
+10. Simmer for 15 minutes, mashing a few chickpeas to thicken the gravy.
+11. Garnish with chopped coriander and serve hot with rice or bhature.
+
+## Scrambled Eggs
+- Crack 3 eggs into a bowl, add a pinch of salt and whisk well.
+- Melt 1 tablespoon of butter in a non-stick pan over low heat.
+- Pour in the eggs and let them sit for a few seconds.
+- Stir gently with a spatula, pushing the eggs from the edges to the centre.
+- Take the pan off the heat while the eggs are still a little soft.
+- Season with pepper and serve hot on toast.
+
+## Grilled Cheese Sandwich
+1. Butter one side of each slice of bread.
+2. Place a slice of cheese between two slices of bread, buttered sides out.
+3. Heat a pan over medium heat.
+4. Place the sandwich in the pan and cook for 3 minutes until golden brown.
+5. Flip the sandwich and cook for 2 more minutes until the cheese melts.
+6. Cut the sandwich in half and serve hot.
+
+## Greek Salad
+1. Cut the cucumbers, tomatoes and capsicum into bite sized pieces.
+2. Slice the red onion thinly.
+3. Add all the vegetables to a large bowl.
+4. Add the olives and the feta cheese.
+5. Whisk the olive oil, lemon juice, dried oregano, salt and pepper in a small bowl.
+6. Pour the dressing over the salad and toss gently.
+7. Serve right away.
+
+## Mango Lassi
+1. Peel the mango and chop the flesh into pieces.
+2. Add the chopped mango, 1 cup of curd, ½ cup of milk and 2 tablespoons of sugar to a blender.
+3. Add a pinch of cardamom powder and a few ice cubes.
+4. Blend until smooth and frothy.
+5. Taste and add more sugar if needed.
+6. Pour into glasses and serve chilled.
+
+## Vanilla Sponge Cake
+1. Preheat the oven to 180°C and grease a round cake tin with butter.
+2. Line the base of the tin with parchment paper.
+3. In a large bowl, beat 3 eggs with ¾ cup of sugar until pale and thick.
+4. Add 1 teaspoon of vanilla extract and beat well.
+5. Sift 1 cup of flour and 1 teaspoon of baking powder over the egg mixture.
+6. Fold the flour in gently so the batter stays light.
+7. Fold in ¼ cup of melted butter.
+8. Pour the batter into the cake tin and tap it on the counter to remove air bubbles.
+9. Bake for 25–30 minutes until a toothpick inserted in the centre comes out clean.
+10. Let the cake cool in the tin for 10 minutes, then turn it out onto a wire rack.
+
+## Hakka Noodles
+1. Boil the noodles in salted water for 3 minutes, then drain.
+2. Rinse the noodles under cold water and toss them with a little oil so they do not stick.
+3. Heat 2 tablespoons of oil in a wok over high heat.
+4. Add the chopped garlic and chopped ginger and stir fry for 30 seconds.
+5. Add the sliced onion, sliced capsicum, shredded cabbage and sliced carrots and stir fry for 2 minutes.
+6. Add the noodles and toss well on high heat.
+7. Add 1 tablespoon of soy sauce, 1 teaspoon of vinegar, a pinch of pepper and salt to taste.
+8. Toss for 2 minutes until the noodles are hot and well coated.
+9. Garnish with chopped spring onion greens and serve hot.
+
+## Pav Bhaji
+Step 1: Boil the potatoes, cauliflower, peas and carrots until soft, then mash them.
+Step 2: Heat 3 tablespoons of butter in a large pan over medium heat.
+Step 3: Add the chopped onion and cook until soft.
+Step 4: Add the ginger garlic paste and cook for 1 minute.
+Step 5: Add the chopped capsicum and chopped tomatoes and cook until the tomatoes are soft.
+Step 6: Add the pav bhaji masala, red chilli powder, turmeric and salt and cook for 2 minutes.
+Step 7: Add the mashed vegetables and ½ cup of water and mash everything together.
+Step 8: Simmer for 10 minutes, stirring often.
+Step 9: Slit the pav and toast it on a hot tawa with butter until golden.
+Step 10: Garnish the bhaji with chopped onion, chopped coriander and a squeeze of lemon and serve with the pav.
+
+## Rasam
+1. Boil the chopped tomatoes with 2 cups of water, tamarind pulp, turmeric and salt for 10 minutes.
+2. Add the rasam powder and simmer for 5 minutes.
+3. Add ½ cup of cooked toor dal and 1 cup of water and bring it to a gentle boil.
+4. Turn off the heat as soon as the rasam turns frothy.
+5. Heat 1 tablespoon of ghee in a small pan over medium heat.
+6. Add the mustard seeds, cumin seeds and a pinch of asafoetida and let them splutter.
+7. Add the curry leaves and dried red chillies and fry for a few seconds.
+8. Pour the tempering over the rasam, garnish with chopped coriander and serve hot with rice.
+
+## Brownies
+1. Preheat the oven to 180°C and line a square baking tin with parchment paper.
+2. Melt ½ cup of butter and 1 cup of chopped dark chocolate together over low heat.
+3. Let the chocolate mixture cool for 5 minutes.
+4. Whisk in 1 cup of sugar, then whisk in 2 eggs one at a time.
+5. Add 1 teaspoon of vanilla extract and mix well.
+6. Fold in ½ cup of flour, 2 tablespoons of cocoa powder and a pinch of salt.
+7. Pour the batter into the tin and smooth the top.
+8. Bake for 20–25 minutes until the top is set but the centre is still a little soft.
+9. Let the brownies cool completely before cutting them into squares.
+
+## Palak Paneer
+1. Blanch the spinach leaves in boiling water for 2 minutes.
+2. Plunge the spinach into ice cold water, then drain it.
+3. Blend the spinach with the green chillies into a smooth puree.
+4. Heat 2 tablespoons of oil in a pan over medium heat.
+5. Add the cumin seeds and let them splutter.
+6. Add the chopped onion and cook until soft.
+7. Add the ginger garlic paste and cook for 1 minute.
+8. Add the chopped tomato and cook until soft.
+9. Add the spinach puree, garam masala and salt and simmer for 5 minutes.
+10. Add the paneer cubes and simmer for 3 minutes.
+11. Stir in 2 tablespoons of cream and serve hot with roti.
+
+## Oats Porridge
+- Bring 1 cup of milk and ½ cup of water to a boil in a small pot.
+- Add ½ cup of rolled oats and a pinch of salt.
+- Cook on low heat for 5 minutes, stirring often.
+- Stir in 1 teaspoon of honey and a pinch of cinnamon.
+- Pour the porridge into a bowl.
+- Top with sliced banana and chopped nuts and serve warm.
+
+## Mashed Potatoes
+1. Peel the potatoes and cut them into even pieces.
+2. Boil the potatoes in salted water for 15–20 minutes until soft.
+3. Drain the potatoes and let them steam dry for 2 minutes.
+4. Mash the potatoes until smooth.
+5. Stir in 2 tablespoons of butter and ½ cup of warm milk.
+6. Season with salt and pepper and serve hot.
+
+## Fish Fry
+1. Wash the fish pieces and pat them dry with a kitchen towel.
+2. Mix the red chilli powder, turmeric, ginger garlic paste, lemon juice and salt into a paste.
+3. Coat the fish pieces with the paste and marinate for 20 minutes.
+4. Heat 3 tablespoons of oil in a pan over medium heat.
+5. Place the fish pieces in the pan in a single layer.
+6. Fry for 4 minutes until the bottom is crisp and golden.
+7. Flip the fish and fry the other side for 3 more minutes.
+8. Serve hot with sliced onion and lemon wedges.
+
+## Idli
+1. Soak 2 cups of idli rice and ½ cup of urad dal separately for 6 hours.
+2. Grind the urad dal into a smooth, fluffy batter, adding a little water at a time.
+3. Grind the rice into a slightly coarse batter.
+4. Mix both batters together with salt in a large bowl.
+5. Cover the bowl and let the batter ferment overnight in a warm place.
+6. Grease the idli plates with a little oil.
+7. Pour the batter into the idli plates.
+8. Steam the idlis for 10–12 minutes until a toothpick inserted in the centre comes out clean.
+9. Let the idlis rest for 2 minutes, then remove them from the plates.
+10. Serve hot with coconut chutney and sambar.
+
+## Tomato Soup
+1. Heat 1 tablespoon of butter in a pot over medium heat.
+2. Add the chopped onion and chopped garlic and cook until soft.
+3. Add the chopped tomatoes, salt and a pinch of sugar.
+4. Pour in 2 cups of water and bring to a boil.
+5. Simmer for 15 minutes until the tomatoes are very soft.
+6. Let the soup cool a little, then blend it until smooth.
+7. Strain the soup back into the pot.
+8. Season with pepper and simmer for 2 more minutes.
+9. Stir in a little cream and serve hot with croutons.
+
+## Margherita Pizza
+1. Mix 2 cups of flour, 1 teaspoon of yeast, 1 teaspoon of sugar and a pinch of salt in a large bowl.
+2. Add ¾ cup of warm water and 1 tablespoon of olive oil and knead into a soft dough.
+3. Cover the dough and let it rise in a warm place for 1 hour.
+4. Preheat the oven to 220°C.
+5. Punch the dough down and roll it into a thin circle.
+6. Place the base on a baking tray and spread the pizza sauce over it.
+7. Top with grated mozzarella cheese and fresh basil leaves.
+8. Drizzle with a little olive oil.
+9. Bake for 12–15 minutes until the crust is golden and the cheese is bubbling.
+10. Let the pizza cool for 2 minutes, then slice and serve.
+
+## Sambar
+1. Pressure cook 1 cup of toor dal with turmeric and water for 3 whistles, then mash it.
+2. Boil the chopped drumsticks, carrots and onions in water with salt until tender.
+3. Add the tamarind pulp and sambar powder and simmer for 5 minutes.
+4. Add the mashed dal and 1 cup of water and bring to a boil.
+5. Simmer for 10 minutes, stirring occasionally.
+6. Heat 1 tablespoon of oil in a small pan over medium heat.
+7. Add the mustard seeds, a pinch of asafoetida and dried red chillies and let them splutter.
+8. Add the curry leaves and fry for a few seconds.
+9. Pour the tempering over the sambar, garnish with chopped coriander and serve hot with rice or idli.
+
+## Dosa
+1. Heat a tawa over medium heat and sprinkle a few drops of water on it.
+2. When the water sizzles, wipe the tawa with a cloth dipped in oil.
+3. Pour a ladle of dosa batter in the centre of the tawa.
+4. Spread the batter in a circular motion to make a thin dosa.
+5. Drizzle a little oil around the edges.
+6. Cook until the bottom is crisp and golden brown.
+7. Fold the dosa in half and serve hot with coconut chutney and sambar.
+
+## Kheer
+1. Rinse ¼ cup of rice and soak it for 20 minutes.
+2. Bring 4 cups of milk to a boil in a heavy pot.
+3. Add the drained rice and cook on low heat for 30 minutes, stirring often.
+4. Cook until the rice is soft and the milk thickens.
+5. Add ½ cup of sugar and stir until it melts.
+6. Add a pinch of cardamom powder and a few strands of saffron.
+7. Garnish with chopped nuts and serve warm or chilled.
