@@ -183,9 +183,110 @@ def evaluate(train: list[list[str]], held_out: list[list[str]],
 
 
 # --- Milestone 3: Create a function to generate recipe step continuations.
-# Hint: Develop a function that uses your trained n-gram model to predict subsequent words.
-def milestone_3():  # TODO(milestone 3)
-    raise NotImplementedError("TODO(milestone 3)")
+# To continue a partial step we look up the words seen after its context in training
+# (backing off when the context is new) and choose the next word: the most likely ones for
+# suggestions, or a weighted random draw for generation. Choices come from the words that
+# were actually seen there (the MLE distribution). Smoothing is for *scoring* new text;
+# drawing from the smoothed distribution would sprinkle random vocabulary into a step.
+
+COOKING_VERBS = frozenset("""
+    add bake beat blanch blend boil bring brush chop coat cook cover crack cut dip divide drain
+    drizzle fold fry garnish grate grease grind heat knead line marinate mash melt mix peel place
+    plunge pour preheat punch rinse roast roll scoop season serve sift simmer slice slit soak
+    spread sprinkle squeeze steam stir strain taste toast top toss whisk wipe""".split())
+
+INGREDIENTS = frozenset("""
+    asafoetida avocado avocados banana bananas basil beans bread butter cabbage capsicum cardamom
+    carrots cashews cauliflower cheese chicken chickpeas chilli chillies chocolate cinnamon cloves
+    cocoa coconut coriander cream cucumbers cumin curd dal drumsticks egg eggs feta fish flour
+    garlic ghee ginger honey lemon lime mango methi milk mint mozzarella mushrooms mustard noodles
+    nuts oats oil olives onion onions oregano paneer parsley pasta peanuts peas pepper poha
+    potatoes raisins rava rice saffron salt spinach stock sugar tamarind tea tomato tomatoes
+    turmeric vanilla vinegar water yeast""".split())
+
+
+def detokenize(tokens: list[str]) -> str:
+    """Turn tokens back into a readable step: tidy punctuation, '180 degrees c' -> '180°C'."""
+    text = " ".join(tokens)
+    text = re.sub(r" ([,;:)])", r"\1", text).replace("( ", "(")
+    text = re.sub(r"(\d+) degrees ([cf])\b", lambda m: f"{m.group(1)}°{m.group(2).upper()}", text)
+    return text[:1].upper() + text[1:] + "." if text else ""
+
+
+def _ranked_followers(model: NGramModel, history: list[str]) -> list[tuple[str, int]]:
+    """Words seen after the (backed-off) context, most frequent first; ties alphabetical."""
+    followers = model.counts[model.backoff(model.context(history))]
+    return sorted(((w, c) for w, c in followers.items() if w != UNK), key=lambda wc: (-wc[1], wc[0]))
+
+
+def next_words(model: NGramModel, prefix: str, top: int = 5,
+               only: frozenset[str] | None = None) -> list[tuple[str, float]]:
+    """The `top` most likely next words after a partial step, as (word, probability).
+
+    '</s>' means "the step can end here". `only` keeps just the words in that set (for example
+    COOKING_VERBS); when the current context has none of them, shorter contexts are tried.
+    """
+    history = tokenize(prefix)
+    ctx = model.backoff(model.context(history))
+    for start in range(len(ctx) + 1):
+        shorter = ctx[start:]
+        if shorter not in model.counts:
+            continue
+        ranked = sorted(((w, c) for w, c in model.counts[shorter].items()
+                         if w != UNK and (only is None or w in only)), key=lambda wc: (-wc[1], wc[0]))
+        if ranked:
+            return [(w, model.prob(w, history)) for w, _ in ranked[:top]]
+    return []
+
+
+def generate(model: NGramModel, prefix: str = "", max_words: int = 25,
+             seed: int | None = None, temperature: float = 1.0) -> str:
+    """Sample the rest of a step word by word from P(next | context) until '</s>'.
+
+    temperature < 1 sticks closer to the most common phrasing, > 1 takes more risks.
+    """
+    if temperature <= 0:
+        raise ValueError("temperature must be positive")
+    rng = random.Random(seed)
+    history, words = tokenize(prefix), []
+    for _ in range(max_words):
+        followers = model.counts[model.backoff(model.context(history + words))]
+        choices = [w for w in followers if w != UNK]
+        weights = [followers[w] ** (1 / temperature) for w in choices]
+        word = rng.choices(choices, weights)[0]
+        if word == EOS:
+            break
+        words.append(word)
+    return detokenize(history + words)
+
+
+def _best_next(model: NGramModel, tokens: list[str]) -> str | None:
+    """Most likely next word that does not repeat an n-gram already in `tokens` (no loops)."""
+    seen = {tuple(tokens[i:i + model.n]) for i in range(len(tokens) - model.n + 1)}
+    for word, _ in _ranked_followers(model, tokens):
+        if word == EOS or tuple((tokens + [word])[-model.n:]) not in seen:
+            return word
+    return None
+
+
+def complete(model: NGramModel, prefix: str, num: int = 3, max_words: int = 25) -> list[str]:
+    """Up to `num` different ways to finish a partial step.
+
+    Each suggestion starts with one of the most likely next words and is then extended
+    greedily with the most likely word until the step ends.
+    """
+    history, endings = tokenize(prefix), []
+    for first, _ in _ranked_followers(model, history)[:num]:
+        words = [] if first == EOS else [first]
+        while words and len(words) < max_words:
+            word = _best_next(model, history + words)
+            if word is None or word == EOS:
+                break
+            words.append(word)
+        step = detokenize(history + words)
+        if step and step not in endings:
+            endings.append(step)
+    return endings
 
 
 # --- Milestone 4: Build a CLI for users to input partial steps and get suggestions.

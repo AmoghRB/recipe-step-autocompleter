@@ -78,9 +78,48 @@ def test_milestone_2_held_out_perplexity_picks_the_model():
 
 
 # Milestone 3: Create a function to generate recipe step continuations.
-@pytest.mark.skip(reason="remove this line when you start milestone 3")
-def test_milestone_3():
-    raise NotImplementedError("write the test for milestone 3")
+@pytest.fixture(scope="module")
+def recipe_model():
+    return core.NGramModel().fit(core.load_corpus())
+
+
+def test_milestone_3_complete_ranks_continuations_by_count():
+    toy = [["heat", "the", "oil"]] * 2 + [["heat", "the", "pan"]]
+    model = core.NGramModel(n=3, k=0.01).fit(toy)
+    assert core.complete(model, "Heat the", num=2) == ["Heat the oil.", "Heat the pan."]
+
+
+def test_milestone_3_next_words_are_ranked_probabilities(recipe_model):
+    suggestions = core.next_words(recipe_model, "preheat the", top=3)
+    assert suggestions[0][0] == "oven"
+    probs = [p for _, p in core.next_words(recipe_model, "heat 2 tablespoons of", top=5)]
+    assert probs == sorted(probs, reverse=True) and all(0 < p < 1 for p in probs)
+
+
+def test_milestone_3_filters_keep_only_verbs_or_ingredients(recipe_model):
+    words = [w for w, _ in core.next_words(recipe_model, "chopped", top=5, only=core.INGREDIENTS)]
+    assert words and set(words) <= core.INGREDIENTS
+    verbs = [w for w, _ in core.next_words(recipe_model, "", top=5, only=core.COOKING_VERBS)]
+    assert verbs and set(verbs) <= core.COOKING_VERBS
+
+
+def test_milestone_3_generate_is_repeatable_and_clean(recipe_model):
+    first = core.generate(recipe_model, "add the", seed=3)
+    assert first == core.generate(recipe_model, "add the", seed=3)
+    assert first.startswith("Add the") and first.endswith(".")
+    assert "<s>" not in first and "</s>" not in first and "<unk>" not in first
+
+
+def test_milestone_3_greedy_completion_never_loops(recipe_model):
+    for step in core.complete(recipe_model, "stir", num=3, max_words=40):
+        tokens = core.tokenize(step)
+        trigrams = [tuple(tokens[i:i + 3]) for i in range(len(tokens) - 2)]
+        assert len(trigrams) == len(set(trigrams))
+
+
+def test_milestone_3_detokenize_reads_like_a_recipe():
+    tokens = ["preheat", "the", "oven", "to", "180", "degrees", "c", ",", "then", "bake"]
+    assert core.detokenize(tokens) == "Preheat the oven to 180°C, then bake."
 
 
 # Milestone 4: Build a CLI for users to input partial steps and get suggestions.
