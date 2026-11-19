@@ -101,6 +101,8 @@ def test_milestone_3_filters_keep_only_verbs_or_ingredients(recipe_model):
     assert words and set(words) <= core.INGREDIENTS
     verbs = [w for w, _ in core.next_words(recipe_model, "", top=5, only=core.COOKING_VERBS)]
     assert verbs and set(verbs) <= core.COOKING_VERBS
+    # No verb was ever seen after "pour the batter into", so nothing is invented.
+    assert core.next_words(recipe_model, "pour the batter into", only=core.COOKING_VERBS) == []
 
 
 def test_milestone_3_generate_is_repeatable_and_clean(recipe_model):
@@ -123,6 +125,47 @@ def test_milestone_3_detokenize_reads_like_a_recipe():
 
 
 # Milestone 4: Build a CLI for users to input partial steps and get suggestions.
-@pytest.mark.skip(reason="remove this line when you start milestone 4")
-def test_milestone_4():
-    raise NotImplementedError("write the test for milestone 4")
+@pytest.fixture
+def data_path(tmp_path, monkeypatch):
+    path = tmp_path / "app.json"
+    monkeypatch.setenv("DATA_PATH", str(path))
+    return path
+
+
+def test_milestone_4_model_is_saved_and_reloaded(data_path, monkeypatch):
+    trained = core.get_model()
+    assert data_path.exists()
+    monkeypatch.setattr(core.NGramModel, "fit", lambda *a: pytest.fail("should load, not retrain"))
+    loaded = core.get_model()
+    assert loaded.prob("oven", ["preheat", "the"]) == pytest.approx(trained.prob("oven", ["preheat", "the"]))
+
+
+def test_milestone_4_suggest_command(data_path, capsys):
+    from app.cli import main
+    main(["suggest", "heat", "2", "tablespoons", "of"])
+    out = capsys.readouterr().out
+    assert out.startswith("Next word:  oil")
+    assert "1. Heat 2 tablespoons of oil in a pan over medium heat." in out
+
+
+def test_milestone_4_suggest_can_filter_to_ingredients(data_path, capsys):
+    from app.cli import main
+    main(["suggest", "garnish", "with", "chopped", "--only", "ingredients", "--top", "2", "--num", "1"])
+    out = capsys.readouterr().out
+    assert "coriander" in out and "2. " not in out
+
+
+def test_milestone_4_interactive_loop(data_path):
+    model = core.get_model()
+    typed, shown = iter(["preheat the", ""]), []
+    core.run_interactive(model, ask=lambda _: next(typed), show=shown.append)
+    assert any("oven" in text for text in shown)
+
+
+def test_milestone_4_generate_and_evaluate_commands(data_path, capsys):
+    from app.cli import main
+    main(["generate", "add", "the", "--seed", "1", "--count", "2"])
+    lines = capsys.readouterr().out.strip().splitlines()
+    assert len(lines) == 2 and all(line.startswith("Add the") for line in lines)
+    main(["evaluate"])
+    assert "inf" in capsys.readouterr().out

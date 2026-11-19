@@ -4,12 +4,15 @@ Built milestone by milestone (see README.md). Standard library only: no neural n
 """
 from __future__ import annotations
 
+import hashlib
 import math
 import random
 import re
 import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
+
+from app.storage import Store
 
 BOS, EOS, UNK = "<s>", "</s>", "<unk>"
 CORPUS_PATH = Path(__file__).resolve().parent.parent / "corpus" / "recipes.txt"
@@ -224,19 +227,12 @@ def next_words(model: NGramModel, prefix: str, top: int = 5,
     """The `top` most likely next words after a partial step, as (word, probability).
 
     '</s>' means "the step can end here". `only` keeps just the words in that set (for example
-    COOKING_VERBS); when the current context has none of them, shorter contexts are tried.
+    COOKING_VERBS). It never reaches past the current context: a verb that was never seen
+    after these words would be a bad suggestion, so the list can come back empty.
     """
     history = tokenize(prefix)
-    ctx = model.backoff(model.context(history))
-    for start in range(len(ctx) + 1):
-        shorter = ctx[start:]
-        if shorter not in model.counts:
-            continue
-        ranked = sorted(((w, c) for w, c in model.counts[shorter].items()
-                         if w != UNK and (only is None or w in only)), key=lambda wc: (-wc[1], wc[0]))
-        if ranked:
-            return [(w, model.prob(w, history)) for w, _ in ranked[:top]]
-    return []
+    ranked = [(w, c) for w, c in _ranked_followers(model, history) if only is None or w in only]
+    return [(w, model.prob(w, history)) for w, _ in ranked[:top]]
 
 
 def generate(model: NGramModel, prefix: str = "", max_words: int = 25,
@@ -269,14 +265,15 @@ def _best_next(model: NGramModel, tokens: list[str]) -> str | None:
     return None
 
 
-def complete(model: NGramModel, prefix: str, num: int = 3, max_words: int = 25) -> list[str]:
+def complete(model: NGramModel, prefix: str, num: int = 3, max_words: int = 25,
+             only: frozenset[str] | None = None) -> list[str]:
     """Up to `num` different ways to finish a partial step.
 
-    Each suggestion starts with one of the most likely next words and is then extended
-    greedily with the most likely word until the step ends.
+    Each suggestion starts with one of the most likely next words (from `only`, if given)
+    and is then extended greedily with the most likely word until the step ends.
     """
     history, endings = tokenize(prefix), []
-    for first, _ in _ranked_followers(model, history)[:num]:
+    for first, _ in next_words(model, prefix, top=num, only=only):
         words = [] if first == EOS else [first]
         while words and len(words) < max_words:
             word = _best_next(model, history + words)
@@ -290,6 +287,50 @@ def complete(model: NGramModel, prefix: str, num: int = 3, max_words: int = 25) 
 
 
 # --- Milestone 4: Build a CLI for users to input partial steps and get suggestions.
-# Hint: Construct a command-line interface to take user input and display predictions.
-def milestone_4():  # TODO(milestone 4)
-    raise NotImplementedError("TODO(milestone 4)")
+# app/cli.py parses the commands; the pieces it needs live here so they can be tested:
+# a trained model that is saved once and reloaded (no retraining on every run), the text
+# shown for one partial step, and the interactive loop.
+
+def _corpus_fingerprint(path: Path = CORPUS_PATH) -> str:
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:16]
+
+
+def get_model(n: int = DEFAULT_N, k: float = DEFAULT_K, retrain: bool = False,
+              path: str | None = None) -> NGramModel:
+    """Load the saved model if it was trained with the same n, k and corpus; else train and save."""
+    store = Store(path)
+    saved = store.get("model")
+    if (saved and not retrain and saved["n"] == n and saved["k"] == k
+            and store.get("corpus") == _corpus_fingerprint()):
+        return NGramModel.from_dict(saved)
+    model = NGramModel(n, k).fit(load_corpus())
+    store.put("model", model.to_dict())
+    store.put("corpus", _corpus_fingerprint())
+    return model
+
+
+def format_suggestions(model: NGramModel, prefix: str, top: int = 5, num: int = 3,
+                       only: frozenset[str] | None = None) -> str:
+    """What the user sees for one partial step: likely next words, then whole-step endings."""
+    words = next_words(model, prefix, top=top, only=only)
+    if not words:
+        return "None of the words that follow this step match the filter. Try it without --only."
+    shown = "  ·  ".join(f"{'(end of step)' if w == EOS else w} {p:.0%}" for w, p in words)
+    lines = [f"Next word:  {shown}", "Finish the step:"]
+    lines += [f"  {i}. {step}" for i, step in enumerate(complete(model, prefix, num=num, only=only), 1)]
+    return "\n".join(lines)
+
+
+def run_interactive(model: NGramModel, ask=input, show=print, top: int = 5, num: int = 3,
+                    only: frozenset[str] | None = None) -> None:
+    """Read partial steps until an empty line (or Ctrl-D) and show suggestions for each."""
+    show("Type the start of a recipe step and press Enter. An empty line quits.")
+    while True:
+        try:
+            prefix = ask("step> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            show("")
+            return
+        if not prefix:
+            return
+        show(format_suggestions(model, prefix, top=top, num=num, only=only))
