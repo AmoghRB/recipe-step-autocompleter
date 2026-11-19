@@ -1,4 +1,6 @@
 """Tests for each milestone in README.md."""
+import math
+
 import pytest
 
 from app import core
@@ -36,9 +38,43 @@ def test_milestone_1_split_is_repeatable_and_disjoint():
 
 
 # Milestone 2: Implement n-gram counting and maximum-likelihood probabilities with smoothing.
-@pytest.mark.skip(reason="remove this line when you start milestone 2")
-def test_milestone_2():
-    raise NotImplementedError("write the test for milestone 2")
+def _new_york_corpus():
+    """'new' appears 100 times, 'new york' 40 times."""
+    return [["new", "york"]] * 40 + [["new", "delhi"]] * 60
+
+
+def test_milestone_2_mle_is_pair_count_over_context_count():
+    model = core.NGramModel(n=2, k=0).fit(_new_york_corpus())
+    assert model.count(("new",), "york") == 40
+    assert model.prob("york", ["new"]) == pytest.approx(40 / 100)
+
+
+def test_milestone_2_add_k_smoothing_removes_zeros():
+    unseen_pair = ("delhi", ["york"])  # 'york delhi' never occurs
+    assert core.NGramModel(n=2, k=0).fit(_new_york_corpus()).prob(*unseen_pair) == 0.0
+    smoothed = core.NGramModel(n=2, k=1).fit(_new_york_corpus())
+    vocab_size = len(smoothed.vocab)  # new, york, delhi, </s>, <unk>
+    assert smoothed.prob(*unseen_pair) == pytest.approx(1 / (40 + vocab_size))
+
+
+def test_milestone_2_every_distribution_sums_to_one():
+    model = core.NGramModel(3, 0.01).fit(core.load_corpus())
+    for history in ([], ["preheat", "the"], ["never", "seen"]):
+        assert sum(model.prob(w, history) for w in model.vocab) == pytest.approx(1.0)
+
+
+def test_milestone_2_unseen_context_backs_off_to_a_shorter_one():
+    model = core.NGramModel(3, 0.01).fit(core.load_corpus())
+    assert model.backoff(model.context(["zebra", "the"])) == ("the",)
+
+
+def test_milestone_2_held_out_perplexity_picks_the_model():
+    train, held = core.split_corpus(core.load_corpus())
+    assert core.NGramModel(3, k=0).fit(train).perplexity(held) == math.inf  # one zero is fatal
+    chosen = core.NGramModel(3, 0.01).fit(train)
+    assert chosen.perplexity(held) < core.NGramModel(1, 0.01).fit(train).perplexity(held)
+    assert chosen.perplexity(held) < core.NGramModel(3, 1.0).fit(train).perplexity(held)  # add-1
+    assert chosen.perplexity(train) < chosen.perplexity(held)  # training text flatters the model
 
 
 # Milestone 3: Create a function to generate recipe step continuations.
