@@ -1,6 +1,6 @@
 # Recipe Step Autocompleter
 
-[![Built with askThili](https://ask.thili.ai/api/v1/public/projects/xs5cac6k4m/badge.svg)](https://ask.thili.ai/b/xs5cac6k4m)
+[![Built with askThili](https://msrit.ask.thili.ai/api/v1/public/projects/xs5cac6k4m/badge.svg)](https://msrit.ask.thili.ai/b/xs5cac6k4m)
 [![tests](https://github.com/AmoghRB/recipe-step-autocompleter/actions/workflows/ci.yml/badge.svg)](https://github.com/AmoghRB/recipe-step-autocompleter/actions/workflows/ci.yml)
 
 A command-line tool for home cooks. Type the start of a recipe step and it suggests the next
